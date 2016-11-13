@@ -7,4 +7,10 @@
 3. Pull preconfigured docker image for openface and then start it:
     docker pull bamos/openface
     docker run -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
-4. 
+4. Make a folder called ./training_images/ inside the openface folder(/root/openface).
+    mkdir training_images
+   Make a subfolder for each person you want to recognize. For example:
+    mkdir ./training_images/obama/
+    mkdir ./training_images/trump/
+5. Copy all your images of each person into the correct sub-folders. Make sure only one face appears in each image. There's no need to crop the image around the face. OpenFace will do that automatically.
+    

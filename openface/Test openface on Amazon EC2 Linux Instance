@@ -28,4 +28,9 @@
     ./demos/classifier.py train ./generated-embeddings/
     This will generate a new file called ./generated-embeddings/classifier.pkl. This file has the SVM model you'll use to recognize new faces.
     Now you should have a working face recognizer!
-    
+7. Recognize faces!
+    Pass a test image to the classifier script like this:
+    ./demos/classifier.py infer ./generated-embeddings/classifier.pkl test_images/Jacky_20150816_092814.jpg
+    You can get a prediction that looks like this:
+    === test_images/Jacky_20150816_092814.jpg ===
+    Predict jacky with 0.82 confidence.

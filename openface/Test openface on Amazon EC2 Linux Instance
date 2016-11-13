@@ -6,11 +6,26 @@
 2. Install docker on that instance follow http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html#install_docker.
 3. Pull preconfigured docker image for openface and then start it:
     docker pull bamos/openface
-    docker run -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
-4. Make a folder called ./training_images/ inside the openface folder(/root/openface).
+    docker run --name openface -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
+4. Go to openface folder(/root/openface)
+    cd /root/openface
+   Make a folder called ./training_images/
     mkdir training_images
    Make a subfolder for each person you want to recognize. For example:
     mkdir ./training_images/obama/
     mkdir ./training_images/trump/
 5. Copy all your images of each person into the correct sub-folders. Make sure only one face appears in each image. There's no need to crop the image around the face. OpenFace will do that automatically.
+   Use below command on EC2 Linux instance to cp the image to docker container:
+    docker cp /home/ec2-user/training_images/jacky/20161113_180636.jpg openface:/root/openface/training_images/jacky/
+6. Processing training images.
+   (1) do pose detection and alignment:
+    ./util/align-dlib.py ./training_images/ align outerEyesAndNose ./aligned-images/ --size 96
+    This will create a new ./aligned-images/ subfolder with a cropped and aligned version of each of your test images.
+   (2) generate the representations from the aligned images:
+    ./batch-represent/main.lua -outDir ./generated-embeddings/ -data ./aligned-images/
+    After you run this, the ./generated-embeddings/ sub-folder will contain a csv file with the embeddings for each image.
+   (3) train your face detection model:
+    ./demos/classifier.py train ./generated-embeddings/
+    This will generate a new file called ./generated-embeddings/classifier.pkl. This file has the SVM model you'll use to recognize new faces.
+    Now you should have a working face recognizer!
     

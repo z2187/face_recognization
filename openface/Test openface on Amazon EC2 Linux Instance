@@ -7,6 +7,8 @@
 3. Pull preconfigured docker image for openface and then start it:
     docker pull bamos/openface
     docker run --name openface -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
+   You can also mount the current working directory into the container using -v option:
+    docker run --name openface -v /home/ec2-user:/home/ec2-user -p 9000:9000 -p 8000:8000 -t -i bamos/openface /bin/bash
 4. Go to openface folder(/root/openface)
     cd /root/openface
    Make a folder called ./training_images/

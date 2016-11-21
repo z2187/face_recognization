@@ -16,7 +16,8 @@
    Make a subfolder for each person you want to recognize. For example:
     mkdir ./training_images/obama/
     mkdir ./training_images/trump/
-5. Copy all your images of each person into the correct sub-folders. Make sure only one face appears in each image. There's no need to crop the image around the face. OpenFace will do that automatically.
+5. Copy all your images of each person into the correct sub-folders. Make sure only one face appears in each image. 
+   There's no need to crop the image around the face. OpenFace will do that automatically.
    Use below command on EC2 Linux instance to cp the image to docker container:
     docker cp /home/ec2-user/training_images/jacky/20161113_180636.jpg openface:/root/openface/training_images/jacky/
 6. Processing training images.
@@ -28,7 +29,8 @@
     After you run this, the ./generated-embeddings/ sub-folder will contain a csv file with the embeddings for each image.
    (3) train your face detection model:
     ./demos/classifier.py train ./generated-embeddings/
-    This will generate a new file called ./generated-embeddings/classifier.pkl. This file has the SVM model you'll use to recognize new faces.
+    This will generate a new file called ./generated-embeddings/classifier.pkl. This file has the SVM model you'll use to recognize 
+    new faces.
     Now you should have a working face recognizer!
 7. Recognize faces!
     Pass a test image to the classifier script like this:
